@@ -1,5 +1,4 @@
-import React from 'react';
-import { Heart, Phone, Mail, MapPin, Clock, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Heart, Mail, MapPin, Clock, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
   const quickLinks = [
@@ -109,13 +108,10 @@ const Footer = () => {
                   <p className="text-gray-300">Medical District, NY 10001</p>
                 </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-sky-500 flex-shrink-0" />
-                <p className="text-gray-300">(555) 012-3456</p>
-              </div>
+              
               <div className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-sky-500 flex-shrink-0" />
-                <p className="text-gray-300">info@avahealth.com</p>
+                <p className="text-gray-300">hello@ava-health.org</p>
               </div>
               <div className="flex items-start space-x-3">
                 <Clock className="w-5 h-5 text-sky-500 mt-1 flex-shrink-0" />

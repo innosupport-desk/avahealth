@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, Users, Clock } from 'lucide-react';
 
@@ -67,7 +66,7 @@ const Hero = () => {
           <div className="relative">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl">
               <img 
-                src="https://images.pexels.com/photos/4173251/pexels-photo-4173251.jpeg?auto=compress&cs=tinysrgb&w=800" 
+                src="https://ik.imagekit.io/aphllc/portrait-nurse-scrubs-clinic.jpg?updatedAt=1750693283734" 
                 alt="Healthcare professionals providing care" 
                 className="w-full h-96 lg:h-[600px] object-cover"
               />

@@ -62,7 +62,7 @@ const About = () => {
           
           <div className="relative">
             <img 
-              src="https://images.pexels.com/photos/4173239/pexels-photo-4173239.jpeg?auto=compress&cs=tinysrgb&w=800" 
+              src="https://ik.imagekit.io/aphllc/woman-medic-wearing-stethoscope-red-uniform.jpg?updatedAt=1750693267622" 
               alt="Medical team consultation" 
               className="rounded-2xl shadow-2xl w-full h-96 object-cover"
             />

@@ -1,24 +1,11 @@
-import React from 'react';
-import { MapPin, Phone, Mail, Clock, Navigation } from 'lucide-react';
+import { Mail, Clock, Navigation } from 'lucide-react';
 
 const Contact = () => {
   const contactInfo = [
     {
-      icon: MapPin,
-      title: 'Address',
-      details: '123 Healthcare Ave, Medical District, NY 10001',
-      action: 'Get Directions'
-    },
-    {
-      icon: Phone,
-      title: 'Phone',
-      details: '(555) 012-3456',
-      action: 'Call Now'
-    },
-    {
       icon: Mail,
       title: 'Email',
-      details: 'info@avahealth.com',
+      details: 'hello@ava-health.org',
       action: 'Send Email'
     },
     {
