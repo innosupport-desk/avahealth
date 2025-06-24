@@ -10,7 +10,7 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Ava Health Limited
+                Ava Health
                 <span className="bg-gradient-to-r from-sky-500 to-teal-500 bg-clip-text text-transparent"> Healthcare Excellence</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
