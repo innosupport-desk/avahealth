@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState } from 'react';
 import { 
   Stethoscope, 
   Heart, 
@@ -12,6 +12,8 @@ import {
 } from 'lucide-react';
 
 const Services = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   const services = [
     {
       icon: Stethoscope,
@@ -80,10 +82,8 @@ const Services = () => {
               <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-4 rounded-xl w-fit mb-6 group-hover:scale-110 transition-transform duration-300">
                 <service.icon className="w-8 h-8 text-white" />
               </div>
-              
               <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
               <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-              
               <ul className="space-y-2 mb-6">
                 {service.features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center text-sm text-gray-600">
@@ -92,11 +92,26 @@ const Services = () => {
                   </li>
                 ))}
               </ul>
-              
-              <button className="flex items-center text-sky-600 font-medium hover:text-sky-700 transition-colors duration-200 group-hover:translate-x-2">
+              <button 
+                className="flex items-center text-sky-600 font-medium hover:text-sky-700 transition-colors duration-200 group-hover:translate-x-2 mb-2"
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
+              >
                 Learn More
                 <ArrowRight className="ml-2 w-4 h-4" />
               </button>
+              {openIndex === index && (
+                <div className="bg-sky-50 border border-sky-200 rounded-lg p-4 text-gray-800 text-sm mb-2 animate-fade-in">
+                  <strong>Why choose our {service.title}?</strong>
+                  <ul className="list-disc list-inside ml-2 mt-2">
+                    {service.features.map((feature, i) => (
+                      <li key={i}>{feature} - Benefit: {getBenefitText(service.title, feature)}</li>
+                    ))}
+                  </ul>
+                  <div className="mt-3 italic text-sky-700">
+                    {getServiceExtraInfo(service.title)}
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
@@ -130,3 +145,72 @@ const Services = () => {
 };
 
 export default Services;
+
+// Helper functions for extra info and benefits
+function getBenefitText(serviceTitle: string, feature: string) {
+  const benefits: Record<string, Record<string, string>> = {
+    'Primary Care': {
+      'Annual Physical Exams': 'Early detection and prevention',
+      'Vaccinations': 'Protection against diseases',
+      'Health Screenings': 'Personalized health insights',
+      'Chronic Disease Management': 'Ongoing support for better outcomes',
+    },
+    'Cardiology': {
+      'Heart Disease Treatment': 'Advanced therapies for heart health',
+      'ECG & Stress Tests': 'Accurate cardiac diagnostics',
+      'Cardiac Rehabilitation': 'Faster recovery and improved lifestyle',
+      'Preventive Cardiology': 'Reduce risk of future heart issues',
+    },
+    'Neurology': {
+      'Stroke Care': 'Rapid intervention for best results',
+      'Epilepsy Treatment': 'Personalized seizure management',
+      'Headache Management': 'Relief and prevention strategies',
+      'Neurological Diagnostics': 'Comprehensive brain and nerve tests',
+    },
+    'Orthopedics': {
+      'Joint Replacement': 'Restore mobility and comfort',
+      'Sports Medicine': 'Get back to activity quickly',
+      'Fracture Care': 'Expert bone healing',
+      'Physical Therapy': 'Regain strength and function',
+    },
+    'Ophthalmology': {
+      'Eye Exams': 'Maintain optimal vision',
+      'Cataract Surgery': 'Restore clear sight',
+      'Glaucoma Treatment': 'Prevent vision loss',
+      'Retinal Care': 'Protect eye health',
+    },
+    'Pediatrics': {
+      'Well-Child Visits': 'Track healthy growth',
+      'Immunizations': 'Shield children from illness',
+      'Developmental Screenings': 'Early support for milestones',
+      'Pediatric Urgent Care': 'Prompt care for kids',
+    },
+    'Emergency Care': {
+      '24/7 Emergency Room': 'Immediate help anytime',
+      'Trauma Care': 'Expert critical care',
+      'Critical Care': 'Advanced life support',
+      'Emergency Surgery': 'Rapid surgical response',
+    },
+    'Healthcare Consulting': {
+      'Healthcare Strategy': 'Grow your organization',
+      'Medical Advisory': 'Expert medical guidance',
+      'Quality Improvement': 'Boost patient outcomes',
+      'Compliance Support': 'Stay ahead of regulations',
+    },
+  };
+  return benefits[serviceTitle]?.[feature] || '';
+}
+
+function getServiceExtraInfo(serviceTitle: string) {
+  const info: Record<string, string> = {
+    'Primary Care': 'Our team builds lasting relationships to support your lifelong health journey.',
+    'Cardiology': 'We use the latest technology and a compassionate approach for every heart.',
+    'Neurology': 'Our neurologists are leaders in innovative treatments and patient care.',
+    'Orthopedics': 'From sports injuries to joint replacements, we help you move better.',
+    'Ophthalmology': 'Trust our specialists for everything from routine exams to complex surgeries.',
+    'Pediatrics': 'We care for your children as if they were our own, every step of the way.',
+    'Emergency Care': 'Fast, skilled, and always ready—your emergency is our priority.',
+    'Healthcare Consulting': 'Partner with us to elevate your healthcare organization’s performance.',
+  };
+  return info[serviceTitle] || '';
+}
