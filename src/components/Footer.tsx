@@ -39,7 +39,7 @@ const Footer = () => {
                 <Heart className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold">Ava Health</h3>
+                <h3 className="text-2xl font-bold">AVA Health</h3>
                 <p className="text-gray-400 text-sm">Healthcare Excellence</p>
               </div>
             </div>
@@ -144,7 +144,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © 2025 Ava Health. All rights reserved. Licensed Healthcare Provider.
+              © 2025 AVA Health. All rights reserved. Licensed Healthcare Provider.
             </p>
             <div className="flex space-x-6 text-sm">
               <a href="#" className="text-gray-400 hover:text-white transition-colors duration-200">

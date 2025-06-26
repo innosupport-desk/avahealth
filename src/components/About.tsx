@@ -28,7 +28,7 @@ const About = () => {
     <section id="about" className="py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">About Ava Health</h2>
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">About AVA Health</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             A leading healthcare provider committed to delivering exceptional medical services 
             with innovation, compassion, and clinical excellence.
@@ -39,7 +39,7 @@ const About = () => {
           <div className="space-y-6">
             <h3 className="text-3xl font-bold text-gray-900">Our Mission</h3>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Ava Health is dedicated to transforming healthcare delivery through innovative 
+              AVA Health is dedicated to transforming healthcare delivery through innovative 
               solutions and comprehensive medical services. We are committed to improving patient 
               outcomes while maintaining the highest standards of care and professionalism.
             </p>
@@ -82,7 +82,7 @@ const About = () => {
             <div>
               <h4 className="text-lg font-semibold text-gray-900 mb-3">Legal Structure</h4>
               <p className="text-gray-600 mb-4">
-                Ava Health is a registered limited company committed to providing 
+                AVA Health is a registered limited company committed to providing 
                 comprehensive healthcare solutions and medical services.
               </p>
               <h4 className="text-lg font-semibold text-gray-900 mb-3">Our Commitment</h4>

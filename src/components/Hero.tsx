@@ -10,13 +10,13 @@ const Hero = () => {
           <div className="space-y-8">
             <div className="space-y-4">
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                Ava Health
+                AVA Health
                 <span className="bg-gradient-to-r from-sky-500 to-teal-500 bg-clip-text text-transparent"> Healthcare Excellence</span>
               </h1>
               <p className="text-xl text-gray-600 leading-relaxed">
-                Your trusted healthcare partner providing comprehensive medical services with 
-                innovation, compassion, and clinical excellence. We are committed to delivering 
-                exceptional patient care and improving health outcomes in our community.
+                Welcome to AVA Health. We believe that quality healthcare should be accessible to everyone, everywhere. That's why we're 
+                building a truly inclusive healthcare ecosystem in Nigeria, tackling challenges from the ground up. Our core mission is to
+                empower all healthcare providers with the tools and support they need to thrive.
               </p>
             </div>
 
@@ -25,7 +25,7 @@ const Hero = () => {
                 to="/request-service"
                 className="inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-sky-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
               >
-                Request Service
+                Get Started
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Link>
               <button
