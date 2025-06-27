@@ -18,6 +18,18 @@ const Hero = () => {
                 building a truly inclusive healthcare ecosystem in Nigeria, tackling challenges from the ground up. Our core mission is to
                 empower all healthcare providers with the tools and support they need to thrive.
               </p>
+              <p className="text-lg text-gray-600">
+                At Ava Health, we're dedicated to optimizing the supply chain for essential healthcare 
+                commodities, ensuring even the most remote communities have access to vital 
+                resources. We provide innovative technological solutions to digitize operations and 
+                establish a central, secure hub for healthcare data, making patient information readily 
+                available for faster, more effective care. In essence, we offer end-to-end solutions 
+                designed to empower healthcare providers, streamlining everything from critical 
+                supplies to digital processes, ultimately enhancing patient experiences across Nigeria.
+              </p>
+              <p className="text-lg text-gray-600">
+                Join us in shaping a healthier, digitally advanced Nigeria for all.
+              </p>
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, Calendar, Clock, User, FileText, Phone, Mail } from 'lucide-react';
+import { ArrowLeft, User } from 'lucide-react';
 
 const ServiceRequestForm = () => {
   const [formData, setFormData] = useState({
@@ -8,7 +8,8 @@ const ServiceRequestForm = () => {
     lastName: '',
     email: '',
     phone: '',
-    dateOfBirth: '',
+    facilityName: '',
+    location: '',
     service: '',
     preferredDate: '',
     preferredTime: '',
@@ -19,29 +20,36 @@ const ServiceRequestForm = () => {
     medications: '',
     allergies: '',
     previousTreatment: '',
-    additionalNotes: ''
+    additionalNotes: '',
+    serviceType: '',
+    designation: '' // Add designation field
   });
+  const [showSuggestions, setShowSuggestions] = useState(false);
+  const [suggestions, setSuggestions] = useState<string[]>([]);
 
-  const services = [
-    'Primary Care Consultation',
-    'Cardiology Consultation',
-    'Neurology Consultation',
-    'Orthopedic Consultation',
-    'Ophthalmology Consultation',
-    'Pediatric Consultation',
-    'Emergency Care',
-    'Pharmacy Consultation',
-    'Physical Therapy',
-    'Mental Health Services',
-    'Radiology Services',
-    'Laboratory Services'
-  ];
+  
 
-  const urgencyLevels = [
-    { value: 'routine', label: 'Routine (within 2 weeks)', color: 'text-green-600' },
-    { value: 'urgent', label: 'Urgent (within 3 days)', color: 'text-yellow-600' },
-    { value: 'emergency', label: 'Emergency (same day)', color: 'text-red-600' }
-  ];
+ 
+
+  // Fetch address suggestions from Nominatim API (OpenStreetMap)
+  interface NominatimResult {
+    display_name: string;
+  }
+  const fetchAddressSuggestions = async (query: string) => {
+    if (!query) {
+      setSuggestions([]);
+      return;
+    }
+    try {
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=7`
+      );
+      const data: NominatimResult[] = await response.json();
+      setSuggestions(data.map((item) => item.display_name));
+    } catch {
+      setSuggestions([]);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -49,6 +57,24 @@ const ServiceRequestForm = () => {
       ...prev,
       [name]: value
     }));
+  };
+
+  const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleInputChange(e);
+    const value = e.target.value;
+    if (value.length > 0) {
+      fetchAddressSuggestions(value);
+      setShowSuggestions(true);
+    } else {
+      setShowSuggestions(false);
+      setSuggestions([]);
+    }
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setFormData(prev => ({ ...prev, location: suggestion }));
+    setShowSuggestions(false);
+    setSuggestions([]);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -147,212 +173,92 @@ const ServiceRequestForm = () => {
                 />
               </div>
               <div>
-                <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-700 mb-2">
-                  Date of Birth *
-                </label>
-                <input
-                  type="date"
-                  id="dateOfBirth"
-                  name="dateOfBirth"
-                  required
-                  value={formData.dateOfBirth}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
-                />
-              </div>
-              <div>
-                <label htmlFor="insurance" className="block text-sm font-medium text-gray-700 mb-2">
-                  Insurance Provider
+                <label htmlFor="facilityName" className="block text-sm font-medium text-gray-700 mb-2">
+                  Facility Name *
                 </label>
                 <input
                   type="text"
-                  id="insurance"
-                  name="insurance"
-                  value={formData.insurance}
+                  id="facilityName"
+                  name="facilityName"
+                  required
+                  value={formData.facilityName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
-                  placeholder="Blue Cross Blue Shield"
                 />
               </div>
+              <div>
+                <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
+                  Location
+                </label>
+                <div className="relative">
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    value={formData.location || ''}
+                    onChange={handleLocationChange}
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                    placeholder="Search for your location"
+                    autoComplete="off"
+                    onFocus={() => formData.location && setShowSuggestions(true)}
+                  />
+                  {showSuggestions && suggestions.length > 0 && (
+                    <ul className="absolute z-10 bg-white border border-gray-200 rounded-lg mt-1 w-full shadow-lg max-h-48 overflow-y-auto">
+                      {suggestions.map((suggestion, idx) => (
+                        <li
+                          key={idx}
+                          className="px-4 py-2 cursor-pointer hover:bg-sky-100"
+                          onClick={() => handleSuggestionClick(suggestion)}
+                        >
+                          {suggestion}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
             </div>
+          </div>
+          
+               {/* Designation */}
+          <div className="mb-8">
+            <label htmlFor="designation" className="block text-sm font-medium text-gray-700 mb-2">
+              Designation *
+            </label>
+            <input
+              type="text"
+              id="designation"
+              name="designation"
+              required
+              value={formData.designation}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+              placeholder="Enter your designation (e.g. Doctor, Nurse, Admin)"
+            />
           </div>
 
-          {/* Service Information */}
-          <div className="mb-12">
-            <div className="flex items-center mb-6">
-              <FileText className="w-6 h-6 text-sky-500 mr-3" />
-              <h2 className="text-2xl font-bold text-gray-900">Service Information</h2>
-            </div>
-            
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="md:col-span-2">
-                <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                  Requested Service *
-                </label>
-                <select
-                  id="service"
-                  name="service"
-                  required
-                  value={formData.service}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
-                >
-                  <option value="">Select a service</option>
-                  {services.map((service, index) => (
-                    <option key={index} value={service}>{service}</option>
-                  ))}
-                </select>
-              </div>
-              <div>
-                <label htmlFor="preferredDate" className="block text-sm font-medium text-gray-700 mb-2">
-                  Preferred Date
-                </label>
-                <input
-                  type="date"
-                  id="preferredDate"
-                  name="preferredDate"
-                  value={formData.preferredDate}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
-                />
-              </div>
-              <div>
-                <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-2">
-                  Preferred Time
-                </label>
-                <select
-                  id="preferredTime"
-                  name="preferredTime"
-                  value={formData.preferredTime}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
-                >
-                  <option value="">Select time</option>
-                  <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
-                  <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
-                  <option value="evening">Evening (5:00 PM - 8:00 PM)</option>
-                </select>
-              </div>
-              <div className="md:col-span-2">
-                <label className="block text-sm font-medium text-gray-700 mb-3">
-                  Urgency Level *
-                </label>
-                <div className="space-y-3">
-                  {urgencyLevels.map((level, index) => (
-                    <label key={index} className="flex items-center">
-                      <input
-                        type="radio"
-                        name="urgency"
-                        value={level.value}
-                        checked={formData.urgency === level.value}
-                        onChange={handleInputChange}
-                        className="w-4 h-4 text-sky-600 border-gray-300 focus:ring-sky-500"
-                      />
-                      <span className={`ml-3 font-medium ${level.color}`}>{level.label}</span>
-                    </label>
-                  ))}
-                </div>
-              </div>
-            </div>
+
+          {/* Service Type */}
+          <div className="mb-8">
+            <label htmlFor="serviceType" className="block text-sm font-medium text-gray-700 mb-2">
+              Service Type *
+            </label>
+            <select
+              id="serviceType"
+              name="serviceType"
+              required
+              value={formData.serviceType || ''}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+            >
+              <option value="">Select type</option>
+              <option value="service request">Service Request</option>
+              <option value="enquiries">Enquiries</option>
+              <option value="consultation">Consultation</option>
+            </select>
           </div>
 
-          {/* Medical Information */}
-          <div className="mb-12">
-            <div className="flex items-center mb-6">
-              <FileText className="w-6 h-6 text-sky-500 mr-3" />
-              <h2 className="text-2xl font-bold text-gray-900">Medical Information</h2>
-            </div>
-            
-            <div className="space-y-6">
-              <div>
-                <label htmlFor="reason" className="block text-sm font-medium text-gray-700 mb-2">
-                  Reason for Visit *
-                </label>
-                <textarea
-                  id="reason"
-                  name="reason"
-                  required
-                  rows={3}
-                  value={formData.reason}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
-                  placeholder="Please describe the reason for your visit..."
-                />
-              </div>
-              <div>
-                <label htmlFor="symptoms" className="block text-sm font-medium text-gray-700 mb-2">
-                  Current Symptoms
-                </label>
-                <textarea
-                  id="symptoms"
-                  name="symptoms"
-                  rows={3}
-                  value={formData.symptoms}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
-                  placeholder="Please describe any symptoms you're experiencing..."
-                />
-              </div>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div>
-                  <label htmlFor="medications" className="block text-sm font-medium text-gray-700 mb-2">
-                    Current Medications
-                  </label>
-                  <textarea
-                    id="medications"
-                    name="medications"
-                    rows={3}
-                    value={formData.medications}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
-                    placeholder="List any medications you're currently taking..."
-                  />
-                </div>
-                <div>
-                  <label htmlFor="allergies" className="block text-sm font-medium text-gray-700 mb-2">
-                    Allergies
-                  </label>
-                  <textarea
-                    id="allergies"
-                    name="allergies"
-                    rows={3}
-                    value={formData.allergies}
-                    onChange={handleInputChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
-                    placeholder="List any known allergies..."
-                  />
-                </div>
-              </div>
-              <div>
-                <label htmlFor="previousTreatment" className="block text-sm font-medium text-gray-700 mb-2">
-                  Previous Treatment
-                </label>
-                <textarea
-                  id="previousTreatment"
-                  name="previousTreatment"
-                  rows={3}
-                  value={formData.previousTreatment}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
-                  placeholder="Any previous treatment for this condition..."
-                />
-              </div>
-              <div>
-                <label htmlFor="additionalNotes" className="block text-sm font-medium text-gray-700 mb-2">
-                  Additional Notes
-                </label>
-                <textarea
-                  id="additionalNotes"
-                  name="additionalNotes"
-                  rows={3}
-                  value={formData.additionalNotes}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200 resize-none"
-                  placeholder="Any additional information you'd like to share..."
-                />
-              </div>
-            </div>
-          </div>
+          
 
           {/* Submit Button */}
           <div className="text-center">
@@ -360,7 +266,7 @@ const ServiceRequestForm = () => {
               type="submit"
               className="bg-gradient-to-r from-sky-500 to-teal-500 text-white px-12 py-4 rounded-lg font-semibold text-lg hover:from-sky-600 hover:to-teal-600 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
-              Submit Service Request
+              Request
             </button>
             <p className="text-sm text-gray-600 mt-4">
               We will contact you within 24 hours to confirm your appointment.
