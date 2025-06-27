@@ -3,11 +3,7 @@ import {
   Stethoscope, 
   Heart, 
   Brain, 
-  Bone, 
-  Eye, 
-  Baby, 
-  Shield, 
-  Pill,
+  Award,
   ArrowRight 
 } from 'lucide-react';
 
@@ -17,52 +13,44 @@ const Services = () => {
   const services = [
     {
       icon: Stethoscope,
-      title: 'Primary Care',
-      description: 'Comprehensive primary healthcare services including routine check-ups, preventive care, and health screenings.',
-      features: ['Annual Physical Exams', 'Vaccinations', 'Health Screenings', 'Chronic Disease Management']
+      title: 'Healthcare Supply Chain and Logistics Optimization',
+      description: 'Optimizing the flow of medical goods and services from suppliers to patients.',
+      features: [
+        'End-to-End Supply Chain Management',
+        'Logistics Consulting and Design',
+        'Inventory and Warehouse Design and Management',
+        'Vendor and Supplier Relationship Management',
+      ],
     },
     {
       icon: Heart,
-      title: 'Cardiology',
-      description: 'Advanced cardiac care and treatment for heart conditions with state-of-the-art diagnostic equipment.',
-      features: ['Heart Disease Treatment', 'ECG & Stress Tests', 'Cardiac Rehabilitation', 'Preventive Cardiology']
+      title: 'Digital Health Solutions and Medical Records',
+      description: 'Empowering healthcare with digital platforms and secure medical records.',
+      features: [
+        'Electronic Health Records (EHR) and Health Information Systems (HIS)',
+        'Healthcare Process Digitization',
+        'Telemedicine and Virtual Consultation Support',
+        'Data Analytics and Insights',
+      ],
     },
     {
       icon: Brain,
-      title: 'Neurology',
-      description: 'Specialized care for neurological conditions and disorders affecting the brain and nervous system.',
-      features: ['Stroke Care', 'Epilepsy Treatment', 'Headache Management', 'Neurological Diagnostics']
+      title: 'Specialized Health and Well-being Services',
+      description: 'Supporting workplace and individual well-being with targeted programs.',
+      features: [
+        'Workplace Mental Well-being Programs',
+      ],
     },
     {
-      icon: Bone,
-      title: 'Orthopedics',
-      description: 'Comprehensive orthopedic care for bone, joint, and muscle conditions and injuries.',
-      features: ['Joint Replacement', 'Sports Medicine', 'Fracture Care', 'Physical Therapy']
+      icon: Award,
+      title: 'Healthcare Innovation and Solution Development',
+      description: 'Driving healthcare advancement through innovation and partnerships.',
+      features: [
+        'Problem-Solving and Solution Incubation',
+        'Partnerships for Healthcare Advancement',
+        'Hospital setup, management and administration consultancy services',
+      ],
     },
-    {
-      icon: Eye,
-      title: 'Ophthalmology',
-      description: 'Complete eye care services from routine exams to advanced surgical procedures.',
-      features: ['Eye Exams', 'Cataract Surgery', 'Glaucoma Treatment', 'Retinal Care']
-    },
-    {
-      icon: Baby,
-      title: 'Pediatrics',
-      description: 'Specialized healthcare services for infants, children, and adolescents.',
-      features: ['Well-Child Visits', 'Immunizations', 'Developmental Screenings', 'Pediatric Urgent Care']
-    },
-    {
-      icon: Shield,
-      title: 'Emergency Care',
-      description: '24/7 emergency medical services with rapid response and advanced life support.',
-      features: ['24/7 Emergency Room', 'Trauma Care', 'Critical Care', 'Emergency Surgery']
-    },
-    {
-      icon: Pill,
-      title: 'Healthcare Consulting',
-      description: 'Professional healthcare consulting services and medical advisory solutions.',
-      features: ['Healthcare Strategy', 'Medical Advisory', 'Quality Improvement', 'Compliance Support']
-    }
   ];
 
   return (
@@ -71,8 +59,7 @@ const Services = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive healthcare services designed to meet all your medical needs with 
-            the highest standards of care and professionalism.
+            We operate at the intersection of healthcare and technology, focusing on the critical pillars.
           </p>
         </div>
 
@@ -135,53 +122,25 @@ export default Services;
 // Helper functions for extra info and benefits
 function getBenefitText(serviceTitle: string, feature: string) {
   const benefits: Record<string, Record<string, string>> = {
-    'Primary Care': {
-      'Annual Physical Exams': 'Early detection and prevention',
-      'Vaccinations': 'Protection against diseases',
-      'Health Screenings': 'Personalized health insights',
-      'Chronic Disease Management': 'Ongoing support for better outcomes',
+    'Healthcare Supply Chain and Logistics Optimization': {
+      'End-to-End Supply Chain Management': 'Streamlined operations and reduced costs',
+      'Logistics Consulting and Design': 'Optimized transport and distribution',
+      'Inventory and Warehouse Design and Management': 'Efficient storage and stock management',
+      'Vendor and Supplier Relationship Management': 'Stronger partnerships and reliability',
     },
-    'Cardiology': {
-      'Heart Disease Treatment': 'Advanced therapies for heart health',
-      'ECG & Stress Tests': 'Accurate cardiac diagnostics',
-      'Cardiac Rehabilitation': 'Faster recovery and improved lifestyle',
-      'Preventive Cardiology': 'Reduce risk of future heart issues',
+    'Digital Health Solutions and Medical Records': {
+      'Electronic Health Records (EHR) and Health Information Systems (HIS)': 'Secure and accessible patient data',
+      'Healthcare Process Digitization': 'Increased efficiency and reduced errors',
+      'Telemedicine and Virtual Consultation Support': 'Remote care convenience',
+      'Data Analytics and Insights': 'Informed decision-making and improved outcomes',
     },
-    'Neurology': {
-      'Stroke Care': 'Rapid intervention for best results',
-      'Epilepsy Treatment': 'Personalized seizure management',
-      'Headache Management': 'Relief and prevention strategies',
-      'Neurological Diagnostics': 'Comprehensive brain and nerve tests',
+    'Specialized Health and Well-being Services': {
+      'Workplace Mental Well-being Programs': 'Enhanced employee well-being and productivity',
     },
-    'Orthopedics': {
-      'Joint Replacement': 'Restore mobility and comfort',
-      'Sports Medicine': 'Get back to activity quickly',
-      'Fracture Care': 'Expert bone healing',
-      'Physical Therapy': 'Regain strength and function',
-    },
-    'Ophthalmology': {
-      'Eye Exams': 'Maintain optimal vision',
-      'Cataract Surgery': 'Restore clear sight',
-      'Glaucoma Treatment': 'Prevent vision loss',
-      'Retinal Care': 'Protect eye health',
-    },
-    'Pediatrics': {
-      'Well-Child Visits': 'Track healthy growth',
-      'Immunizations': 'Shield children from illness',
-      'Developmental Screenings': 'Early support for milestones',
-      'Pediatric Urgent Care': 'Prompt care for kids',
-    },
-    'Emergency Care': {
-      '24/7 Emergency Room': 'Immediate help anytime',
-      'Trauma Care': 'Expert critical care',
-      'Critical Care': 'Advanced life support',
-      'Emergency Surgery': 'Rapid surgical response',
-    },
-    'Healthcare Consulting': {
-      'Healthcare Strategy': 'Grow your organization',
-      'Medical Advisory': 'Expert medical guidance',
-      'Quality Improvement': 'Boost patient outcomes',
-      'Compliance Support': 'Stay ahead of regulations',
+    'Healthcare Innovation and Solution Development': {
+      'Problem-Solving and Solution Incubation': 'Tailored solutions for complex challenges',
+      'Partnerships for Healthcare Advancement': 'Collaborative approach to healthcare improvement',
+      'Hospital setup, management and administration consultancy services': 'Expert guidance for healthcare facilities',
     },
   };
   return benefits[serviceTitle]?.[feature] || '';
@@ -189,14 +148,10 @@ function getBenefitText(serviceTitle: string, feature: string) {
 
 function getServiceExtraInfo(serviceTitle: string) {
   const info: Record<string, string> = {
-    'Primary Care': 'Our team builds lasting relationships to support your lifelong health journey.',
-    'Cardiology': 'We use the latest technology and a compassionate approach for every heart.',
-    'Neurology': 'Our neurologists are leaders in innovative treatments and patient care.',
-    'Orthopedics': 'From sports injuries to joint replacements, we help you move better.',
-    'Ophthalmology': 'Trust our specialists for everything from routine exams to complex surgeries.',
-    'Pediatrics': 'We care for your children as if they were our own, every step of the way.',
-    'Emergency Care': 'Fast, skilled, and always ready—your emergency is our priority.',
-    'Healthcare Consulting': 'Partner with us to elevate your healthcare organization’s performance.',
+    'Healthcare Supply Chain and Logistics Optimization': 'We ensure that healthcare providers have the right products, in the right place, at the right time.',
+    'Digital Health Solutions and Medical Records': 'Our solutions enhance the quality, safety, and efficiency of healthcare delivery.',
+    'Specialized Health and Well-being Services': 'We focus on the holistic health of individuals, addressing both physical and mental well-being.',
+    'Healthcare Innovation and Solution Development': 'We are committed to transforming healthcare through innovative solutions and strategic partnerships.',
   };
   return info[serviceTitle] || '';
 }

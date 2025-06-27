@@ -25,29 +25,33 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="py-20 bg-white">
+    <section id="about" className="py-20 bg-gradient-to-br from-sky-50 to-teal-50">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
+        <div className="text-center mb-16 bg-white bg-opacity-80 rounded-2xl p-8 shadow-md">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">About AVA Health</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            A leading healthcare provider committed to delivering exceptional medical services 
-            with innovation, compassion, and clinical excellence.
+            AVA Health is a pioneering Nigerian healthcare solutions company committed to 
+            transforming health and wellness across the nation. At our core, we are driven by 
+            the belief that accessible, efficient, and innovative healthcare is a right for all.
+            At AVA Health, we are innovators, problem-solvers, and partners in building a 
+            healthier, more digitally connected Nigeria. We are continually working to enhance 
+            health outcomes and empower individuals with the resources and support they 
+            need to thrive.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
           <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900">Our Mission</h3>
+            <h3 className="text-3xl font-bold text-gray-900">Our Mission & Vision</h3>
             <p className="text-lg text-gray-600 leading-relaxed">
-              AVA Health is dedicated to transforming healthcare delivery through innovative 
-              solutions and comprehensive medical services. We are committed to improving patient 
-              outcomes while maintaining the highest standards of care and professionalism.
+              Mission Statement: To empower Nigerian healthcare through optimized supply 
+              chains, innovative solutions, and advanced digital platforms, ensuring seamless 
+              access to medical records and efficient, patient-centred care.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Our organization focuses on providing accessible, quality healthcare services that 
-              meet the diverse needs of our community. We believe in building lasting relationships 
-              with our patients and their families, ensuring continuity of care throughout their 
-              healthcare journey.
+              Vision Statement: A Nigeria where healthcare is universally accessible, efficient, 
+              and technologically integrated, with Ava Health Limited at the forefront of its 
+              transformation.
             </p>
             <div className="flex items-center space-x-4 pt-4">
               <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-3 rounded-full">
@@ -71,46 +75,6 @@ const About = () => {
                 <div className="text-3xl font-bold text-sky-600">10K+</div>
                 <div className="text-sm text-gray-600">Patients Served</div>
               </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Company Information */}
-        <div className="bg-gradient-to-br from-sky-50 to-teal-50 rounded-2xl p-8 mb-16">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6">Company Information</h3>
-          <div className="grid md:grid-cols-2 gap-8">
-            <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Legal Structure</h4>
-              <p className="text-gray-600 mb-4">
-                AVA Health is a registered limited company committed to providing 
-                comprehensive healthcare solutions and medical services.
-              </p>
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Our Commitment</h4>
-              <p className="text-gray-600">
-                We are dedicated to maintaining the highest standards of healthcare delivery, 
-                ensuring compliance with all regulatory requirements and industry best practices.
-              </p>
-            </div>
-            <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Service Areas</h4>
-              <ul className="space-y-2 text-gray-600">
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-gradient-to-r from-sky-500 to-teal-500 rounded-full mr-3"></div>
-                  Primary Healthcare Services
-                </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-gradient-to-r from-sky-500 to-teal-500 rounded-full mr-3"></div>
-                  Specialized Medical Care
-                </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-gradient-to-r from-sky-500 to-teal-500 rounded-full mr-3"></div>
-                  Emergency Medical Services
-                </li>
-                <li className="flex items-center">
-                  <div className="w-2 h-2 bg-gradient-to-r from-sky-500 to-teal-500 rounded-full mr-3"></div>
-                  Healthcare Consulting
-                </li>
-              </ul>
             </div>
           </div>
         </div>

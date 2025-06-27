@@ -58,7 +58,7 @@ const Header = () => {
               to="/request-service"
               className="bg-gradient-to-r from-sky-500 to-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:from-sky-600 hover:to-teal-600 transition-all duration-200 transform hover:scale-105"
             >
-              Request Service
+              Get Started
             </Link>
             <a 
               href="https://www.namecheap.com/myaccount/login/" 
@@ -108,7 +108,7 @@ const Header = () => {
                 onClick={() => setIsMenuOpen(false)}
                 className="bg-gradient-to-r from-sky-500 to-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:from-sky-600 hover:to-teal-600 transition-all duration-200 text-center"
               >
-                Request Service
+                Get Started
               </Link>
               <a 
                 href="https://www.namecheap.com/myaccount/login/" 
