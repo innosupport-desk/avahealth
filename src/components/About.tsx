@@ -82,7 +82,7 @@ const About = () => {
               className="group relative overflow-hidden rounded-2xl border border-navy-100 bg-cream p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
             >
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-navy-700 via-brand-600 to-gold-400" />
-              <div className="mb-5 w-fit rounded-xl bg-white p-3 shadow-sm">
+              <div className="mb-5 w-fit rounded-xl bg-white p-3 shadow-xs">
                 <Icon className="h-7 w-7 text-brand-600" />
               </div>
               <h3 className="mb-3 text-xl font-bold text-navy-700">{title}</h3>

@@ -57,7 +57,7 @@ const Contact = () => {
           <div className="grid gap-5 sm:grid-cols-2 lg:col-span-3">
             {contactItems.map(({ icon: Icon, label, lines }) => (
               <div key={label} className="rounded-2xl border border-navy-100 bg-cream p-6">
-                <div className="mb-4 w-fit rounded-xl bg-white p-3 shadow-sm">
+                <div className="mb-4 w-fit rounded-xl bg-white p-3 shadow-xs">
                   <Icon className="h-6 w-6 text-brand-600" />
                 </div>
                 <p className="mb-1 text-sm font-semibold uppercase tracking-wider text-navy-700/60">
