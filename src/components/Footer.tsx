@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin } from 'lucide-react';
 
 const quickLinks = [
@@ -42,9 +43,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <a href={link.href} className="text-white/75 transition-colors duration-200 hover:text-gold-200">
+                  <Link to={link.href} className="text-white/75 transition-colors duration-200 hover:text-gold-200">
                     {link.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -56,9 +57,9 @@ const Footer = () => {
             <ul className="space-y-3">
               {services.map((service) => (
                 <li key={service}>
-                  <a href="/#services" className="text-white/75 transition-colors duration-200 hover:text-gold-200">
+                  <Link to="/#services" className="text-white/75 transition-colors duration-200 hover:text-gold-200">
                     {service}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -103,10 +104,9 @@ const Footer = () => {
       <div className="border-t border-white/10">
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 py-6 text-sm text-white/60 sm:px-6 md:flex-row lg:px-8">
           <p>© {new Date().getFullYear()} AVA Health. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="transition-colors duration-200 hover:text-gold-200">Privacy Policy</a>
-            <a href="#" className="transition-colors duration-200 hover:text-gold-200">Terms of Service</a>
-          </div>
+          <a href="https://www.ava-health.org" className="transition-colors duration-200 hover:text-gold-200">
+            www.ava-health.org
+          </a>
         </div>
       </div>
     </footer>

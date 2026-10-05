@@ -1,53 +1,80 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowLeft, User } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Mail, User } from 'lucide-react';
+
+const CONTACT_EMAIL = 'hello@ava-health.org';
+
+const serviceTypeLabels: Record<string, string> = {
+  'service request': 'Service Request',
+  enquiries: 'Enquiries',
+  consultation: 'Consultation',
+};
+
+const initialFormData = {
+  firstName: '',
+  lastName: '',
+  email: '',
+  phone: '',
+  facilityName: '',
+  location: '',
+  designation: '',
+  serviceType: '',
+  message: '',
+};
+
+// Nominatim (OpenStreetMap) allows at most 1 request/second, so wait for typing to pause
+const SUGGESTION_DELAY_MS = 600;
+const MIN_QUERY_LENGTH = 3;
+
+interface NominatimResult {
+  display_name: string;
+}
+
+const buildMailtoHref = (data: typeof initialFormData) => {
+  const name = `${data.firstName} ${data.lastName}`.trim();
+  const subject = `${serviceTypeLabels[data.serviceType] ?? 'Service Request'} from ${name} (${data.facilityName})`;
+  const body = [
+    `Name: ${name}`,
+    `Email: ${data.email}`,
+    `Phone: ${data.phone}`,
+    `Facility: ${data.facilityName}`,
+    `Location: ${data.location || 'Not provided'}`,
+    `Designation: ${data.designation}`,
+    `Request type: ${serviceTypeLabels[data.serviceType] ?? data.serviceType}`,
+    '',
+    'How can AVA Health help?',
+    data.message || 'Not provided',
+  ].join('\n');
+  return `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+};
 
 const ServiceRequestForm = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    phone: '',
-    facilityName: '',
-    location: '',
-    service: '',
-    preferredDate: '',
-    preferredTime: '',
-    urgency: 'routine',
-    insurance: '',
-    reason: '',
-    symptoms: '',
-    medications: '',
-    allergies: '',
-    previousTreatment: '',
-    additionalNotes: '',
-    serviceType: '',
-    designation: '' // Add designation field
-  });
+  const [formData, setFormData] = useState(initialFormData);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [suggestions, setSuggestions] = useState<string[]>([]);
+  const [mailtoHref, setMailtoHref] = useState<string | null>(null);
+  const suggestionTimer = useRef<ReturnType<typeof setTimeout>>();
+  const suggestionRequest = useRef<AbortController>();
 
-  
+  useEffect(() => () => {
+    clearTimeout(suggestionTimer.current);
+    suggestionRequest.current?.abort();
+  }, []);
 
- 
-
-  // Fetch address suggestions from Nominatim API (OpenStreetMap)
-  interface NominatimResult {
-    display_name: string;
-  }
   const fetchAddressSuggestions = async (query: string) => {
-    if (!query) {
-      setSuggestions([]);
-      return;
-    }
+    suggestionRequest.current?.abort();
+    const controller = new AbortController();
+    suggestionRequest.current = controller;
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=7`
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&addressdetails=1&limit=7`,
+        { signal: controller.signal }
       );
+      if (!response.ok) throw new Error(`Nominatim responded ${response.status}`);
       const data: NominatimResult[] = await response.json();
       setSuggestions(data.map((item) => item.display_name));
     } catch {
-      setSuggestions([]);
+      if (!controller.signal.aborted) setSuggestions([]);
     }
   };
 
@@ -61,11 +88,13 @@ const ServiceRequestForm = () => {
 
   const handleLocationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleInputChange(e);
-    const value = e.target.value;
-    if (value.length > 0) {
-      fetchAddressSuggestions(value);
+    const value = e.target.value.trim();
+    clearTimeout(suggestionTimer.current);
+    if (value.length >= MIN_QUERY_LENGTH) {
+      suggestionTimer.current = setTimeout(() => fetchAddressSuggestions(value), SUGGESTION_DELAY_MS);
       setShowSuggestions(true);
     } else {
+      suggestionRequest.current?.abort();
       setShowSuggestions(false);
       setSuggestions([]);
     }
@@ -79,10 +108,50 @@ const ServiceRequestForm = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Service request submitted:', formData);
-    alert('Service request submitted successfully! We will contact you within 24 hours.');
+    const href = buildMailtoHref(formData);
+    setMailtoHref(href);
+    window.scrollTo({ top: 0 });
+    // Opens the visitor's email app with the request pre-filled
+    window.location.href = href;
   };
+
+  if (mailtoHref) {
+    return (
+      <div className="min-h-screen bg-cream py-12">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl rounded-2xl bg-white p-8 text-center shadow-xl lg:p-12">
+            <CheckCircle2 className="mx-auto mb-6 h-14 w-14 text-brand-600" />
+            <h1 className="mb-4 text-3xl font-bold text-navy-700">Almost done: send your email</h1>
+            <p className="mb-6 text-lg text-gray-600">
+              We&apos;ve opened your email app with your request addressed to{' '}
+              <strong className="text-navy-700">{CONTACT_EMAIL}</strong>. Press send there and
+              we&apos;ll get back to you within 24 hours.
+            </p>
+            <p className="mb-8 text-gray-600">
+              Email app didn&apos;t open? Use the button below, or call us on{' '}
+              <a href="tel:+2348143115485" className="font-semibold text-brand-600 hover:text-brand-700">(+234) 814 311 5485</a>.
+            </p>
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <a href={mailtoHref} className="btn-primary px-8 py-3" data-testid="mailto-link">
+                <Mail className="mr-2 h-5 w-5" />
+                Open email again
+              </a>
+              <Link to="/" className="btn-secondary px-8 py-3">
+                Back to Home
+              </Link>
+            </div>
+            <button
+              type="button"
+              onClick={() => setMailtoHref(null)}
+              className="mt-6 text-sm font-medium text-gray-500 underline hover:text-navy-700"
+            >
+              Edit my request
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-cream py-12">
@@ -98,7 +167,7 @@ const ServiceRequestForm = () => {
           </Link>
           <h1 className="text-4xl font-bold text-navy-700 mb-4">Service Request Form</h1>
           <p className="text-xl text-gray-600">
-            Please fill out this form to request healthcare services. We'll contact you to confirm your appointment.
+            Tell us about your facility or organization and what you need. We'll get back to you within 24 hours.
           </p>
         </div>
 
@@ -124,7 +193,7 @@ const ServiceRequestForm = () => {
                   value={formData.firstName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
-                  placeholder="John"
+                  placeholder="Adaeze"
                 />
               </div>
               <div>
@@ -139,7 +208,7 @@ const ServiceRequestForm = () => {
                   value={formData.lastName}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
-                  placeholder="Doe"
+                  placeholder="Okafor"
                 />
               </div>
               <div>
@@ -154,7 +223,7 @@ const ServiceRequestForm = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
-                  placeholder="john.doe@example.com"
+                  placeholder="you@organization.com"
                 />
               </div>
               <div>
@@ -169,7 +238,7 @@ const ServiceRequestForm = () => {
                   value={formData.phone}
                   onChange={handleInputChange}
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
-                  placeholder="(555) 123-4567"
+                  placeholder="0801 234 5678"
                 />
               </div>
               <div>
@@ -200,7 +269,8 @@ const ServiceRequestForm = () => {
                     className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                     placeholder="Search for your location"
                     autoComplete="off"
-                    onFocus={() => formData.location && setShowSuggestions(true)}
+                    onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
+                    onBlur={() => setShowSuggestions(false)}
                   />
                   {showSuggestions && suggestions.length > 0 && (
                     <ul className="absolute z-10 bg-white border border-gray-200 rounded-lg mt-1 w-full shadow-lg max-h-48 overflow-y-auto">
@@ -208,6 +278,8 @@ const ServiceRequestForm = () => {
                         <li
                           key={idx}
                           className="px-4 py-2 cursor-pointer hover:bg-brand-50"
+                          // Keep focus in the input so onBlur doesn't hide the list before the click lands
+                          onMouseDown={(e) => e.preventDefault()}
                           onClick={() => handleSuggestionClick(suggestion)}
                         >
                           {suggestion}
@@ -258,7 +330,21 @@ const ServiceRequestForm = () => {
             </select>
           </div>
 
-          
+          {/* Message */}
+          <div className="mb-8">
+            <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+              How can we help?
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              rows={5}
+              value={formData.message}
+              onChange={handleInputChange}
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
+              placeholder="Briefly describe your facility, the challenge you're facing, or the service you're interested in"
+            />
+          </div>
 
           {/* Submit Button */}
           <div className="text-center">
@@ -266,10 +352,10 @@ const ServiceRequestForm = () => {
               type="submit"
               className="btn-primary px-12 py-4 text-lg"
             >
-              Request
+              Send Request
             </button>
             <p className="text-sm text-gray-600 mt-4">
-              We will contact you within 24 hours to confirm your appointment.
+              This opens your email app with your request addressed to {CONTACT_EMAIL}.
             </p>
           </div>
         </form>
