@@ -1,3 +1,30 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply text-navy-900 antialiased;
+  }
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center rounded-lg bg-navy-700 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:bg-navy-800 hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center rounded-lg border-2 border-brand-600 px-6 py-3 font-semibold text-brand-700 transition-all duration-200 hover:bg-brand-600 hover:text-white;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-brand-600;
+  }
+  .gold-rule {
+    @apply h-[3px] w-16 rounded-full bg-gradient-to-r from-gold-500 via-gold-200 to-gold-500;
+  }
+}

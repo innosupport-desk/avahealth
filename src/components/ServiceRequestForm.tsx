@@ -85,18 +85,18 @@ const ServiceRequestForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-sky-50 to-teal-50 py-12">
+    <div className="min-h-screen bg-cream py-12">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="mb-8">
           <Link 
             to="/" 
-            className="inline-flex items-center text-sky-600 hover:text-sky-700 font-medium mb-4 transition-colors duration-200"
+            className="inline-flex items-center text-brand-600 hover:text-brand-700 font-medium mb-4 transition-colors duration-200"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Home
           </Link>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">Service Request Form</h1>
+          <h1 className="text-4xl font-bold text-navy-700 mb-4">Service Request Form</h1>
           <p className="text-xl text-gray-600">
             Please fill out this form to request healthcare services. We'll contact you to confirm your appointment.
           </p>
@@ -107,8 +107,8 @@ const ServiceRequestForm = () => {
           {/* Personal Information */}
           <div className="mb-12">
             <div className="flex items-center mb-6">
-              <User className="w-6 h-6 text-sky-500 mr-3" />
-              <h2 className="text-2xl font-bold text-gray-900">Personal Information</h2>
+              <User className="w-6 h-6 text-brand-600 mr-3" />
+              <h2 className="text-2xl font-bold text-navy-700">Personal Information</h2>
             </div>
             
             <div className="grid md:grid-cols-2 gap-6">
@@ -123,7 +123,7 @@ const ServiceRequestForm = () => {
                   required
                   value={formData.firstName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                   placeholder="John"
                 />
               </div>
@@ -138,7 +138,7 @@ const ServiceRequestForm = () => {
                   required
                   value={formData.lastName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                   placeholder="Doe"
                 />
               </div>
@@ -153,7 +153,7 @@ const ServiceRequestForm = () => {
                   required
                   value={formData.email}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                   placeholder="john.doe@example.com"
                 />
               </div>
@@ -168,7 +168,7 @@ const ServiceRequestForm = () => {
                   required
                   value={formData.phone}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                   placeholder="(555) 123-4567"
                 />
               </div>
@@ -183,7 +183,7 @@ const ServiceRequestForm = () => {
                   required
                   value={formData.facilityName}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                 />
               </div>
               <div>
@@ -197,7 +197,7 @@ const ServiceRequestForm = () => {
                     name="location"
                     value={formData.location || ''}
                     onChange={handleLocationChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
                     placeholder="Search for your location"
                     autoComplete="off"
                     onFocus={() => formData.location && setShowSuggestions(true)}
@@ -207,7 +207,7 @@ const ServiceRequestForm = () => {
                       {suggestions.map((suggestion, idx) => (
                         <li
                           key={idx}
-                          className="px-4 py-2 cursor-pointer hover:bg-sky-100"
+                          className="px-4 py-2 cursor-pointer hover:bg-brand-50"
                           onClick={() => handleSuggestionClick(suggestion)}
                         >
                           {suggestion}
@@ -232,7 +232,7 @@ const ServiceRequestForm = () => {
               required
               value={formData.designation}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
               placeholder="Enter your designation (e.g. Doctor, Nurse, Admin)"
             />
           </div>
@@ -249,7 +249,7 @@ const ServiceRequestForm = () => {
               required
               value={formData.serviceType || ''}
               onChange={handleInputChange}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-sky-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all duration-200"
             >
               <option value="">Select type</option>
               <option value="service request">Service Request</option>
@@ -264,7 +264,7 @@ const ServiceRequestForm = () => {
           <div className="text-center">
             <button
               type="submit"
-              className="bg-gradient-to-r from-sky-500 to-teal-500 text-white px-12 py-4 rounded-lg font-semibold text-lg hover:from-sky-600 hover:to-teal-600 transition-all duration-200 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="btn-primary px-12 py-4 text-lg"
             >
               Request
             </button>

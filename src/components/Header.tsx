@@ -1,125 +1,103 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Heart, Menu, X, Mail } from 'lucide-react';
+import { Menu, X, Mail } from 'lucide-react';
+
+const navItems = [
+  { id: 'about', label: 'About Us' },
+  { id: 'services', label: 'Services' },
+  { id: 'products', label: 'Products' },
+  { id: 'process', label: 'How We Work' },
+  { id: 'contact', label: 'Contact' },
+];
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
 
   const scrollToSection = (sectionId: string) => {
+    setIsMenuOpen(false);
     if (location.pathname !== '/') {
       window.location.href = `/#${sectionId}`;
       return;
     }
-    
+
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-    setIsMenuOpen(false);
   };
 
   return (
-    <header className="bg-white shadow-lg sticky top-0 z-50">
+    <header className="sticky top-0 z-50 border-b border-gold-200/60 bg-white/95 backdrop-blur">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex items-center justify-between py-3">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2 group">
-            <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-2 rounded-lg group-hover:scale-110 transition-transform duration-200">
-              <Heart className="w-8 h-8 text-white" />
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-gray-900">AVA Health</h1>
-              <p className="text-sm text-gray-600 hidden sm:block">Healthcare Excellence</p>
-            </div>
+          <Link to="/" className="flex items-center" aria-label="AVA Health home">
+            <img src="/ava-logo.png" alt="AVA Health" className="h-14 w-auto sm:h-16" />
           </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <button 
-              onClick={() => scrollToSection('about')}
-              className="text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200"
-            >
-              About Us
-            </button>
-            <button 
-              onClick={() => scrollToSection('services')}
-              className="text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200"
-            >
-              Our Services
-            </button>
-            <button 
-              onClick={() => scrollToSection('contact')}
-              className="text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200"
-            >
-              Contact Us
-            </button>
-            <Link 
-              to="/request-service"
-              className="bg-gradient-to-r from-sky-500 to-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:from-sky-600 hover:to-teal-600 transition-all duration-200 transform hover:scale-105"
-            >
-              Get Started
-            </Link>
-            <a 
-              href="https://www.namecheap.com/myaccount/login/" 
+          <nav className="hidden items-center space-x-7 lg:flex">
+            {navItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className="font-medium text-navy-700 transition-colors duration-200 hover:text-brand-600"
+              >
+                {item.label}
+              </button>
+            ))}
+            <a
+              href="https://www.namecheap.com/myaccount/login/"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center space-x-2 text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200"
+              className="flex items-center space-x-2 font-medium text-navy-700 transition-colors duration-200 hover:text-brand-600"
               title="Employee Email Login"
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="h-4 w-4" />
               <span>Login</span>
             </a>
+            <Link to="/request-service" className="btn-primary !py-2.5">
+              Get Started
+            </Link>
           </nav>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors duration-200"
+            className="rounded-lg p-2 text-navy-700 transition-colors duration-200 hover:bg-navy-50 lg:hidden"
+            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
           >
-            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200">
+          <div className="border-t border-gray-200 py-4 lg:hidden">
             <nav className="flex flex-col space-y-4">
-              <button 
-                onClick={() => scrollToSection('about')}
-                className="text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200 text-left"
-              >
-                About Us
-              </button>
-              <button 
-                onClick={() => scrollToSection('services')}
-                className="text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200 text-left"
-              >
-                Our Services
-              </button>
-              <button 
-                onClick={() => scrollToSection('contact')}
-                className="text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200 text-left"
-              >
-                Contact Us
-              </button>
-              <Link 
-                to="/request-service"
-                onClick={() => setIsMenuOpen(false)}
-                className="bg-gradient-to-r from-sky-500 to-teal-500 text-white px-6 py-2 rounded-lg font-medium hover:from-sky-600 hover:to-teal-600 transition-all duration-200 text-center"
-              >
-                Get Started
-              </Link>
-              <a 
-                href="https://www.namecheap.com/myaccount/login/" 
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className="text-left font-medium text-navy-700 transition-colors duration-200 hover:text-brand-600"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <a
+                href="https://www.namecheap.com/myaccount/login/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center space-x-2 text-gray-700 hover:text-sky-600 font-medium transition-colors duration-200"
+                className="flex items-center space-x-2 font-medium text-navy-700 transition-colors duration-200 hover:text-brand-600"
                 title="Employee Email Login"
               >
-                <Mail className="w-4 h-4" />
+                <Mail className="h-4 w-4" />
                 <span>Login</span>
               </a>
+              <Link to="/request-service" onClick={() => setIsMenuOpen(false)} className="btn-primary">
+                Get Started
+              </Link>
             </nav>
           </div>
         )}

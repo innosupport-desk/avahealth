@@ -1,116 +1,116 @@
-import { useState } from 'react';
-import { 
-  Stethoscope, 
-  Heart, 
-  Brain, 
-  Award,
-  ArrowRight 
+import { Link } from 'react-router-dom';
+import {
+  Briefcase,
+  Brain,
+  Ambulance,
+  LayoutGrid,
+  Pill,
+  Workflow,
+  Building2,
+  MonitorSmartphone,
+  ArrowRight,
 } from 'lucide-react';
 
+const services = [
+  {
+    icon: Briefcase,
+    title: 'Corporate Health Advisory',
+    description:
+      'Consulting with businesses to structure employee health plans and occupational safety protocols.',
+  },
+  {
+    icon: Brain,
+    title: 'Mental Wellness Support Programs',
+    description:
+      'Psychological support frameworks and stress management systems for corporate environments.',
+  },
+  {
+    icon: Ambulance,
+    title: 'Medical Outreach',
+    description:
+      'Planning and execution of community health interventions and mobile clinics.',
+  },
+  {
+    icon: LayoutGrid,
+    title: 'Clinic Design & Setup',
+    description:
+      'Physical layout planning and medical equipment procurement for new facilities.',
+  },
+  {
+    icon: Pill,
+    title: 'Pharmaceuticals & Medical Supplies Management',
+    description:
+      'Supply chain logistics and inventory tracking for clinical consumables.',
+  },
+  {
+    icon: Workflow,
+    title: 'Organizational Workflow & Process Design',
+    description:
+      'Mapping patient journeys and staff operations to eliminate administrative bottlenecks.',
+  },
+  {
+    icon: Building2,
+    title: 'Hospital Management Partnerships',
+    description:
+      'Collaborating with government entities and private owners to run the daily administration of medical centres.',
+  },
+  {
+    icon: MonitorSmartphone,
+    title: 'Digital Health Solutions',
+    description:
+      'Electronic medical records and custom inventory management software to digitize hospital operations.',
+  },
+];
+
 const Services = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-
-  const services = [
-    {
-      icon: Stethoscope,
-      title: 'Healthcare Supply Chain and Logistics Optimization',
-      description: 'Optimizing the flow of medical goods and services from suppliers to patients.',
-      features: [
-        'End-to-End Supply Chain Management',
-        'Logistics Consulting and Design',
-        'Inventory and Warehouse Design and Management',
-        'Vendor and Supplier Relationship Management',
-      ],
-    },
-    {
-      icon: Heart,
-      title: 'Digital Health Solutions and Medical Records',
-      description: 'Empowering healthcare with digital platforms and secure medical records.',
-      features: [
-        'Electronic Health Records (EHR) and Health Information Systems (HIS)',
-        'Healthcare Process Digitization',
-        'Telemedicine and Virtual Consultation Support',
-        'Data Analytics and Insights',
-      ],
-    },
-    {
-      icon: Brain,
-      title: 'Specialized Health and Well-being Services',
-      description: 'Supporting workplace and individual well-being with targeted programs.',
-      features: [
-        'Workplace Mental Well-being Programs',
-      ],
-    },
-    {
-      icon: Award,
-      title: 'Healthcare Innovation and Solution Development',
-      description: 'Driving healthcare advancement through innovation and partnerships.',
-      features: [
-        'Problem-Solving and Solution Incubation',
-        'Partnerships for Healthcare Advancement',
-        'Hospital setup, management and administration consultancy services',
-      ],
-    },
-  ];
-
   return (
-    <section id="services" className="py-20 bg-gradient-to-br from-gray-50 to-white">
+    <section id="services" className="bg-cream py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Services</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            We operate at the intersection of healthcare and technology, focusing on the critical pillars.
+        <div className="mx-auto mb-16 max-w-3xl text-center">
+          <span className="eyebrow">Core Services</span>
+          <h2 className="mt-3 text-3xl font-extrabold text-navy-700 sm:text-4xl">
+            End-to-end support for healthcare operations
+          </h2>
+          <div className="gold-rule mx-auto mt-5" />
+          <p className="mt-5 text-lg text-navy-700/75">
+            From clinic design and supply chains to digital systems and hospital management, we
+            cover the operational side of healthcare so your teams can focus on care.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          {services.map((service, index) => (
-            <div key={index} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 group">
-              <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-4 rounded-xl w-fit mb-6 group-hover:scale-110 transition-transform duration-300">
-                <service.icon className="w-8 h-8 text-white" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          {services.map(({ icon: Icon, title, description }, index) => (
+            <div
+              key={title}
+              className="group relative rounded-2xl border border-navy-100 bg-white p-7 transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-xl"
+            >
+              <span className="absolute right-6 top-6 text-sm font-bold text-gold-500">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+              <div className="mb-5 w-fit rounded-xl bg-gradient-to-br from-navy-700 to-brand-600 p-3.5 transition-transform duration-300 group-hover:scale-110">
+                <Icon className="h-6 w-6 text-white" />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-3">{service.title}</h3>
-              <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
-              <ul className="space-y-2 mb-6">
-                {service.features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                    <div className="w-2 h-2 bg-gradient-to-r from-sky-500 to-teal-500 rounded-full mr-3"></div>
-                    {feature}
-                  </li>
-                ))}
-              </ul>
-              <button 
-                className="flex items-center text-sky-600 font-medium hover:text-sky-700 transition-colors duration-200 group-hover:translate-x-2 mb-2"
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-              >
-                Learn More
-                <ArrowRight className="ml-2 w-4 h-4" />
-              </button>
-              {openIndex === index && (
-                <div className="bg-sky-50 border border-sky-200 rounded-lg p-4 text-gray-800 text-sm mb-2 animate-fade-in">
-                  <strong>Why choose our {service.title}?</strong>
-                  <ul className="list-disc list-inside ml-2 mt-2">
-                    {service.features.map((feature, i) => (
-                      <li key={i}>{feature} - Benefit: {getBenefitText(service.title, feature)}</li>
-                    ))}
-                  </ul>
-                  <div className="mt-3 italic text-sky-700">
-                    {getServiceExtraInfo(service.title)}
-                  </div>
-                </div>
-              )}
+              <h3 className="mb-3 text-lg font-bold leading-snug text-navy-700">{title}</h3>
+              <p className="text-sm leading-relaxed text-navy-700/70">{description}</p>
             </div>
           ))}
         </div>
 
-        {/* CTA Section */}
-        <div className="text-center mt-16">
-          <div className="bg-gradient-to-r from-sky-500 to-teal-500 rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">Need Medical Assistance?</h3>
-            <p className="text-lg mb-6 opacity-90">
-              Our healthcare professionals are ready to provide you with the care you need.
-            </p>
-          </div>
+        {/* CTA */}
+        <div className="relative mt-16 overflow-hidden rounded-3xl bg-navy-700 p-10 text-center text-white sm:p-12">
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-gold-500 via-gold-200 to-gold-500" />
+          <h3 className="mb-3 text-2xl font-bold sm:text-3xl">Ready to streamline your operations?</h3>
+          <p className="mx-auto mb-8 max-w-2xl text-lg text-white/80">
+            Tell us about your facility or organization and we&apos;ll start with an initial
+            discovery session.
+          </p>
+          <Link
+            to="/request-service"
+            className="inline-flex items-center rounded-lg bg-gold-400 px-8 py-3.5 font-semibold text-navy-900 transition-colors duration-200 hover:bg-gold-300"
+          >
+            Request a Service
+            <ArrowRight className="ml-2 h-5 w-5" />
+          </Link>
         </div>
       </div>
     </section>
@@ -118,40 +118,3 @@ const Services = () => {
 };
 
 export default Services;
-
-// Helper functions for extra info and benefits
-function getBenefitText(serviceTitle: string, feature: string) {
-  const benefits: Record<string, Record<string, string>> = {
-    'Healthcare Supply Chain and Logistics Optimization': {
-      'End-to-End Supply Chain Management': 'Streamlined operations and reduced costs',
-      'Logistics Consulting and Design': 'Optimized transport and distribution',
-      'Inventory and Warehouse Design and Management': 'Efficient storage and stock management',
-      'Vendor and Supplier Relationship Management': 'Stronger partnerships and reliability',
-    },
-    'Digital Health Solutions and Medical Records': {
-      'Electronic Health Records (EHR) and Health Information Systems (HIS)': 'Secure and accessible patient data',
-      'Healthcare Process Digitization': 'Increased efficiency and reduced errors',
-      'Telemedicine and Virtual Consultation Support': 'Remote care convenience',
-      'Data Analytics and Insights': 'Informed decision-making and improved outcomes',
-    },
-    'Specialized Health and Well-being Services': {
-      'Workplace Mental Well-being Programs': 'Enhanced employee well-being and productivity',
-    },
-    'Healthcare Innovation and Solution Development': {
-      'Problem-Solving and Solution Incubation': 'Tailored solutions for complex challenges',
-      'Partnerships for Healthcare Advancement': 'Collaborative approach to healthcare improvement',
-      'Hospital setup, management and administration consultancy services': 'Expert guidance for healthcare facilities',
-    },
-  };
-  return benefits[serviceTitle]?.[feature] || '';
-}
-
-function getServiceExtraInfo(serviceTitle: string) {
-  const info: Record<string, string> = {
-    'Healthcare Supply Chain and Logistics Optimization': 'We ensure that healthcare providers have the right products, in the right place, at the right time.',
-    'Digital Health Solutions and Medical Records': 'Our solutions enhance the quality, safety, and efficiency of healthcare delivery.',
-    'Specialized Health and Well-being Services': 'We focus on the holistic health of individuals, addressing both physical and mental well-being.',
-    'Healthcare Innovation and Solution Development': 'We are committed to transforming healthcare through innovative solutions and strategic partnerships.',
-  };
-  return info[serviceTitle] || '';
-}

@@ -1,99 +1,108 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, Shield, Users, Clock } from 'lucide-react';
+import { ArrowRight, Building2, Briefcase, Landmark, Activity } from 'lucide-react';
+
+const audiences = [
+  { icon: Building2, label: 'Healthcare Facilities' },
+  { icon: Briefcase, label: 'Corporate Organizations' },
+  { icon: Landmark, label: 'Government Agencies' },
+];
 
 const Hero = () => {
   return (
-    <section className="relative bg-gradient-to-br from-sky-50 via-white to-teal-50 pt-20 pb-32">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+    <section className="relative overflow-hidden bg-cream pb-28 pt-16 lg:pt-24">
+      {/* Decorative heartbeat line, echoing the logo */}
+      <svg
+        className="pointer-events-none absolute inset-x-0 top-1/2 hidden h-40 w-full -translate-y-1/2 opacity-[0.07] lg:block"
+        viewBox="0 0 1200 160"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        <polyline
+          points="0,80 300,80 330,40 350,120 370,20 395,140 420,80 700,80 730,50 750,110 770,80 1200,80"
+          fill="none"
+          stroke="#c09440"
+          strokeWidth="4"
+        />
+      </svg>
+
+      <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-14 lg:grid-cols-2">
           {/* Content */}
           <div className="space-y-8">
-            <div className="space-y-4">
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                AVA Health
-                <span className="bg-gradient-to-r from-sky-500 to-teal-500 bg-clip-text text-transparent"> Healthcare Excellence</span>
+            <div className="space-y-5">
+              <span className="eyebrow">
+                <Activity className="h-4 w-4" />
+                Operational Support &amp; Advisory
+              </span>
+              <h1 className="text-4xl font-extrabold leading-tight text-navy-700 sm:text-5xl lg:text-6xl">
+                Efficient operations.{' '}
+                <span className="bg-gradient-to-r from-brand-600 to-brand-400 bg-clip-text text-transparent">
+                  Better patient outcomes.
+                </span>
               </h1>
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Welcome to AVA Health. We believe that quality healthcare should be accessible to everyone, everywhere. That's why we're 
-                building a truly inclusive healthcare ecosystem in Nigeria, tackling challenges from the ground up. Our core mission is to
-                empower all healthcare providers with the tools and support they need to thrive.
+              <div className="gold-rule" />
+              <p className="text-lg leading-relaxed text-navy-700/80 sm:text-xl">
+                AVA Health works with healthcare facilities, corporate organizations and government
+                agencies to manage their clinical and healthcare-related operations, so care
+                providers can focus entirely on patients.
               </p>
-              <p className="text-lg text-gray-600">
-                At Ava Health, we're dedicated to optimizing the supply chain for essential healthcare 
-                commodities, ensuring even the most remote communities have access to vital 
-                resources. We provide innovative technological solutions to digitize operations and 
-                establish a central, secure hub for healthcare data, making patient information readily 
-                available for faster, more effective care. In essence, we offer end-to-end solutions 
-                designed to empower healthcare providers, streamlining everything from critical 
-                supplies to digital processes, ultimately enhancing patient experiences across Nigeria.
-              </p>
-              <p className="text-lg text-gray-600">
-                Join us in shaping a healthier, digitally advanced Nigeria for all.
+              <p className="text-base leading-relaxed text-navy-700/70 sm:text-lg">
+                We evaluate existing operational frameworks, remove administrative bottlenecks, and
+                implement practical systems that connect supply chain logistics with daily patient
+                administration.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link 
-                to="/request-service"
-                className="inline-flex items-center justify-center bg-gradient-to-r from-sky-500 to-teal-500 text-white px-8 py-4 rounded-lg font-semibold hover:from-sky-600 hover:to-teal-600 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
-              >
+            <div className="flex flex-col gap-4 sm:flex-row">
+              <Link to="/request-service" className="btn-primary px-8 py-4">
                 Get Started
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="ml-2 h-5 w-5" />
               </Link>
               <button
-                onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
-                className="inline-flex items-center justify-center border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-lg font-semibold hover:border-sky-500 hover:text-sky-600 transition-all duration-300"
+                onClick={() => document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' })}
+                className="btn-secondary px-8 py-4"
               >
-                Learn More
+                Explore Services
               </button>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-3 gap-8 pt-8 border-t border-gray-200">
-              <div className="text-center">
-                <div className="flex justify-center mb-2">
-                  <Shield className="w-8 h-8 text-sky-500" />
-                </div>
-                <div className="text-2xl font-bold text-gray-900">24/7</div>
-                <div className="text-sm text-gray-600">Emergency Care</div>
-              </div>
-              <div className="text-center">
-                <div className="flex justify-center mb-2">
-                  <Users className="w-8 h-8 text-teal-500" />
-                </div>
-                <div className="text-2xl font-bold text-gray-900">50+</div>
-                <div className="text-sm text-gray-600">Healthcare Professionals</div>
-              </div>
-              <div className="text-center">
-                <div className="flex justify-center mb-2">
-                  <Clock className="w-8 h-8 text-sky-500" />
-                </div>
-                <div className="text-2xl font-bold text-gray-900">Quality</div>
-                <div className="text-sm text-gray-600">Healthcare Services</div>
+            {/* Who we serve */}
+            <div className="border-t border-gold-200 pt-8">
+              <p className="mb-4 text-sm font-semibold uppercase tracking-wider text-navy-700/60">
+                Who we serve
+              </p>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                {audiences.map(({ icon: Icon, label }) => (
+                  <div key={label} className="flex items-center gap-3">
+                    <div className="rounded-lg bg-brand-50 p-2.5">
+                      <Icon className="h-5 w-5 text-brand-600" />
+                    </div>
+                    <span className="text-sm font-semibold text-navy-700">{label}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
 
           {/* Image */}
           <div className="relative">
-            <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-              <img 
-                src="https://ik.imagekit.io/aphllc/portrait-nurse-scrubs-clinic.jpg?updatedAt=1750693283734" 
-                alt="Healthcare professionals providing care" 
-                className="w-full h-96 lg:h-[600px] object-cover"
+            <div className="absolute -right-4 -top-4 h-full w-full rounded-3xl border-2 border-gold-300" aria-hidden="true" />
+            <div className="relative overflow-hidden rounded-3xl shadow-2xl">
+              <img
+                src="https://ik.imagekit.io/aphllc/portrait-nurse-scrubs-clinic.jpg?updatedAt=1750693283734"
+                alt="Healthcare professional in a clinic"
+                className="h-96 w-full object-cover lg:h-[560px]"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-navy-900/40 to-transparent" />
             </div>
-            
+
             {/* Floating Card */}
-            <div className="absolute -bottom-8 -left-8 bg-white p-6 rounded-xl shadow-xl border border-gray-100">
-              <div className="flex items-center space-x-4">
-                <div className="bg-green-100 p-3 rounded-full">
-                  <Shield className="w-6 h-6 text-green-600" />
-                </div>
+            <div className="absolute -bottom-8 left-4 right-4 rounded-2xl border border-gold-200 bg-white p-5 shadow-xl sm:-left-8 sm:right-auto">
+              <div className="flex items-center gap-4">
+                <img src="/favicon.png" alt="" className="h-12 w-12" />
                 <div>
-                  <div className="font-semibold text-gray-900">Certified Care</div>
-                  <div className="text-sm text-gray-600">Licensed Healthcare Provider</div>
+                  <div className="font-bold text-navy-700">Supply chain + digital systems</div>
+                  <div className="text-sm text-navy-700/70">Connected for smoother facility administration</div>
                 </div>
               </div>
             </div>

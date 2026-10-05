@@ -1,95 +1,92 @@
-import { Heart, Award, Users, Stethoscope } from 'lucide-react';
+import { Target, Compass, Eye, CheckCircle2 } from 'lucide-react';
+
+const pillars = [
+  {
+    icon: Target,
+    title: 'Our Goal',
+    description:
+      'To provide targeted operational solutions that connect supply chain logistics with digital health systems to optimize daily administrative activities and improve patient outcomes across medical facilities and corporate environments.',
+  },
+  {
+    icon: Compass,
+    title: 'Our Mission',
+    description:
+      'To deliver operational support and advisory services that help healthcare facilities and corporate organizations manage clinical workflows effectively. We achieve this by connecting physical clinic design with digital management platforms to eliminate administrative bottlenecks and enhance daily facility administration.',
+  },
+  {
+    icon: Eye,
+    title: 'Our Vision',
+    description:
+      'To establish healthcare systems where streamlined operational processes and structured medical supply chains directly improve patient care across private and government sectors, so that administrative efficiency enables healthcare providers to focus entirely on clinical outcomes.',
+  },
+];
+
+const highlights = [
+  'Evaluate existing operational frameworks',
+  'Identify inefficiencies and bottlenecks',
+  'Align facility workflows with organizational goals',
+  'Connect supply chain logistics with patient administration',
+];
 
 const About = () => {
-  const values = [
-    {
-      icon: Heart,
-      title: 'Compassionate Care',
-      description: 'We treat every patient with empathy, respect, and genuine concern for their wellbeing.'
-    },
-    {
-      icon: Award,
-      title: 'Excellence',
-      description: 'Our commitment to the highest standards of medical care and continuous improvement.'
-    },
-    {
-      icon: Users,
-      title: 'Collaborative Approach',
-      description: 'We work closely with patients and families to develop personalized treatment plans.'
-    },
-    {
-      icon: Stethoscope,
-      title: 'Advanced Technology',
-      description: 'Utilizing cutting-edge medical technology to provide the most effective treatments.'
-    }
-  ];
-
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-sky-50 to-teal-50">
+    <section id="about" className="bg-white py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16 bg-white bg-opacity-80 rounded-2xl p-8 shadow-md">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">About AVA Health</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            AVA Health is a pioneering Nigerian healthcare solutions company committed to 
-            transforming health and wellness across the nation. At our core, we are driven by 
-            the belief that accessible, efficient, and innovative healthcare is a right for all.
-            At AVA Health, we are innovators, problem-solvers, and partners in building a 
-            healthier, more digitally connected Nigeria. We are continually working to enhance 
-            health outcomes and empower individuals with the resources and support they 
-            need to thrive.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-gray-900">Our Mission & Vision</h3>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Mission Statement: To empower Nigerian healthcare through optimized supply 
-              chains, innovative solutions, and advanced digital platforms, ensuring seamless 
-              access to medical records and efficient, patient-centred care.
-            </p>
-            <p className="text-lg text-gray-600 leading-relaxed">
-              Vision Statement: A Nigeria where healthcare is universally accessible, efficient, 
-              and technologically integrated, with Ava Health Limited at the forefront of its 
-              transformation.
-            </p>
-            <div className="flex items-center space-x-4 pt-4">
-              <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-3 rounded-full">
-                <Heart className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <div className="font-semibold text-gray-900">Healthcare Excellence</div>
-                <div className="text-gray-600">Established Healthcare Provider</div>
-              </div>
-            </div>
-          </div>
-          
-          <div className="relative">
-            <img 
-              src="https://ik.imagekit.io/aphllc/woman-medic-wearing-stethoscope-red-uniform.jpg?updatedAt=1750693267622" 
-              alt="Medical team consultation" 
-              className="rounded-2xl shadow-2xl w-full h-96 object-cover"
+        <div className="mb-20 grid items-center gap-16 lg:grid-cols-2">
+          <div className="relative order-2 lg:order-1">
+            <img
+              src="https://ik.imagekit.io/aphllc/woman-medic-wearing-stethoscope-red-uniform.jpg?updatedAt=1750693267622"
+              alt="Medical professional"
+              className="h-[28rem] w-full rounded-3xl object-cover shadow-2xl"
             />
-            <div className="absolute -top-6 -right-6 bg-white p-6 rounded-xl shadow-lg">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-sky-600">10K+</div>
-                <div className="text-sm text-gray-600">Patients Served</div>
-              </div>
+            <div className="absolute -bottom-6 -right-2 max-w-[16rem] rounded-2xl bg-navy-700 p-6 text-white shadow-xl sm:-right-6">
+              <div className="gold-rule mb-3" />
+              <p className="text-sm leading-relaxed text-white/90">
+                Administrative efficiency that lets providers focus on clinical outcomes.
+              </p>
             </div>
+          </div>
+
+          <div className="order-1 space-y-6 lg:order-2">
+            <span className="eyebrow">About Us</span>
+            <h2 className="text-3xl font-extrabold leading-tight text-navy-700 sm:text-4xl">
+              Healthcare support services built around how facilities actually run
+            </h2>
+            <div className="gold-rule" />
+            <p className="text-lg leading-relaxed text-navy-700/80">
+              AVA Health is a healthcare support service provider specializing in operational
+              support and advisory services. We work directly with healthcare facilities and
+              corporate organizations, including government agencies, to manage their clinical and
+              healthcare-related consultations and operations.
+            </p>
+            <p className="text-lg leading-relaxed text-navy-700/80">
+              We provide access to targeted solutions designed to optimize daily administrative
+              activities and improve overall patient outcomes.
+            </p>
+            <ul className="grid gap-3 pt-2 sm:grid-cols-2">
+              {highlights.map((item) => (
+                <li key={item} className="flex items-start gap-2 text-navy-700">
+                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-brand-600" />
+                  <span className="text-sm font-medium">{item}</span>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
-        {/* Values */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {values.map((value, index) => (
-            <div key={index} className="text-center group">
-              <div className="bg-gradient-to-br from-sky-50 to-teal-50 p-6 rounded-2xl mb-6 group-hover:shadow-lg transition-shadow duration-300">
-                <div className="bg-gradient-to-r from-sky-500 to-teal-500 p-4 rounded-full w-fit mx-auto mb-4">
-                  <value.icon className="w-8 h-8 text-white" />
-                </div>
-                <h4 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h4>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+        {/* Goal / Mission / Vision */}
+        <div className="grid gap-8 md:grid-cols-3">
+          {pillars.map(({ icon: Icon, title, description }) => (
+            <div
+              key={title}
+              className="group relative overflow-hidden rounded-2xl border border-navy-100 bg-cream p-8 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-navy-700 via-brand-600 to-gold-400" />
+              <div className="mb-5 w-fit rounded-xl bg-white p-3 shadow-sm">
+                <Icon className="h-7 w-7 text-brand-600" />
               </div>
+              <h3 className="mb-3 text-xl font-bold text-navy-700">{title}</h3>
+              <p className="leading-relaxed text-navy-700/75">{description}</p>
             </div>
           ))}
         </div>
